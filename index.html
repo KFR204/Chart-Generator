@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Chart Generator</h1>
+        
+        <div class="app-container">
+            <div class="controls-panel">
+                <div class="section">
+                    <h2>Chart Segments</h2>
+                    <div id="segments-container">
+                        <!-- Segments will be added here dynamically -->
+                    </div>
+                    <div class="segment-actions">
+                        <button id="add-segment">Add Segment</button>
+                        <button id="auto-sort" title="Automatically sort segments by value">Auto sorting</button>
+                    </div>
+                </div>
+                
+                <div class="section settings-section">
+                    <h2>Chart Settings</h2>
+                    <div class="settings">
+                        <label>
+                            Chart Title:
+                            <input type="text" id="chart-title" placeholder="Enter title">
+                        </label>
+                        <button id="reset-defaults" class="reset-button">Reset to Default</button>
+                    </div>
+                </div>
+                
+                <div class="section export-section">
+                    <h2>Export</h2>
+                    <button id="export-png">Export PNG</button>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div id="chart-title-display"></div>
+                <div id="chart-area">
+                    <svg id="pie-chart" viewBox="-120 -20 280 280">
+                        <circle cx="120" cy="120" r="100" fill="#f0f0f0" />
+                        <g id="segments"></g>
+                        <circle id="inner-circle" cx="120" cy="120" r="30" fill="white" />
+                    </svg>
+                </div>
+                <div id="legend-container"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="color-picker-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Select Color</h2>
+            <div class="predefined-colors" id="predefined-colors"></div>
+            <div class="color-preview">
+                <div id="selected-color-preview"></div>
+                <input type="color" id="color-input">
+            </div>
+            <button id="confirm-color">Confirm</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,456 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.app-container {
+    display: flex;
+    gap: 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow: hidden;
+    height: 1180px;
+}
+
+.controls-panel {
+    flex: 0 0 350px;
+    padding-right: 20px;
+    overflow-y: visible;
+    max-height: none;
+}
+
+.settings-section {
+    margin-top: 50px;
+}
+
+.export-section {
+    margin-top: 50px;
+}
+
+#segments-container {
+    max-height: 700px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.chart-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 860px;
+    overflow: visible;
+    position: relative;
+    margin-left: 0;
+}
+
+h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+button {
+    background-color: #4a6fdc;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background-color: #3a5dc0;
+}
+
+/* #add-segment {
+    width: 100%;
+    margin-top: 10px;
+} */
+
+.segment-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.segment-actions button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 38px;
+    padding: 0 15px;
+    background-color: #4a6fdc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+.segment-actions button:hover {
+    background-color: #3a5dc0;
+}
+
+.segment-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.segment-color {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+
+.segment-input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.segment-value {
+    width: 80px;
+    text-align: right;
+}
+
+.segment-delete {
+    background-color: #ff5252;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.segment-delete:hover {
+    background-color: #e04141;
+}
+
+.segment-controls {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.segment-move-btn {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    font-size: 10px;
+    margin: 1px 0;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+.segment-move-btn:disabled {
+    background-color: #f0f0f0;
+    color: #ccc;
+    cursor: not-allowed;
+    border: 1px solid #eee;
+}
+
+.segment-move-btn:not(:disabled):hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.settings input[type="range"] {
+    width: 70%;
+    margin-right: 10px;
+}
+
+.settings input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    transition: transform 0.2s;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+}
+
+.custom-color {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#custom-color-picker {
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+#color-input {
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+#confirm-color {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#chart-area {
+    width: 100%;
+    height: 700px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: visible;
+}
+
+#pie-chart {
+    width: 700px;
+    height: 700px;
+    max-width: 100%;
+    overflow: visible;
+}
+
+#legend-container {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    /* border-top: 1px solid #eee; */
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-bottom: 8px;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+#chart-title-display {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1c66af;
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+}
+
+/* Модальное окно выбора цвета */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.predefined-colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.predefined-color {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    transition: transform 0.2s;
+}
+
+.predefined-color:hover, .predefined-color.selected {
+    transform: scale(1.1);
+    border: 2px solid #333;
+}
+
+.color-preview {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+#selected-color-preview {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#color-input {
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+#confirm-color {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Стили для меток сегментов диаграммы */
+.segment-label {
+    font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    letter-spacing: 0.2px;
+}
+
+.segment-label-inside {
+    font-weight: 600;
+    font-size: 11px;
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.7);
+    fill: #333;
+}
+
+.segment-label-outside {
+    font-weight: 500;
+    font-size: 9px;
+    fill: #444;
+}
+
+/* Добавляем эффект при наведении на метку */
+.segment-label:hover {
+    cursor: default;
+    fill: #000;
+    text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.9);
+}
+
+.reset-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.reset-button:hover {
+    background-color: #d32f2f;
+}
+
+@media (max-width: 900px) {
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .controls-panel {
+        max-width: none;
+    }
+}
