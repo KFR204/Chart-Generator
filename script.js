@@ -388,8 +388,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // For regular segments - place label inside
             labelRadius = (innerRadius + outerRadius) / 2;
-            fontSize = 10;
-            fontWeight = 'bold';
+            fontSize = 8;
+            fontWeight = 'normal';
         }
         
         // Calculate label coordinates
