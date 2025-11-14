@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate coordinates
         const centerX = 120;
         const centerY = 120;
-        const outerRadius = 100;
+        const outerRadius = 140;
         const innerRadius = 40; // Fixed inner radius
         
         // Determine if segment is large (more than 180 degrees)
@@ -346,13 +346,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const centerX = 120;
         const centerY = 120;
         const innerRadius = 40; // Fixed inner radius
-        const outerRadius = 100;
+        const outerRadius = 140;
         
         // Check segment width and angle
         // If segment is small or name is long - move label outside
-        const segmentWidth = (angle / 360) * 2 * Math.PI * ((innerRadius + outerRadius) / 2);
-        const estimatedTextWidth = name.length * 5; // Estimated text width (5 pixels per character)
-        const isSmallSegment = angle < 20 || estimatedTextWidth > segmentWidth;
+        // const segmentWidth = (angle / 360) * 2 * Math.PI * ((innerRadius + outerRadius) / 2);
+        const segmentWidth = outerRadius - innerRadius;
+        const estimatedTextWidth = name.length * 6; // Estimated text width (5 pixels per character)
+        const isSmallSegment = angle < 10 || estimatedTextWidth > segmentWidth;
         
         // Radius for label placement
         let labelRadius;
@@ -363,12 +364,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let fill = '#000';
         let offsetX = 0;
         let offsetY = 0;
+        let rotation = 0;
         
         if (isSmallSegment) {
             // For small segments or long names - move label outside chart
             labelRadius = outerRadius + 30; // Distance from chart edge
             fontSize = 8;
-            fontWeight = 'normal';
+            fontWeight = 'bold';
             
             // Determine text alignment based on position
             if (midAngle < 180 ) {
@@ -386,10 +388,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 offsetY = 2; // For bottom half of chart
             }
         } else {
-            // For regular segments - place label inside
-            labelRadius = (innerRadius + outerRadius) / 2;
+            // For regular segments - place label inside with radial rotation
+            const radiusDiff = Math.pow(outerRadius, 2) - Math.pow(innerRadius, 2);
+            if (radiusDiff !== 0) {
+                // Центроид кольцевого сектора: (2/3) * (R^3 - r^3) / (R^2 - r^2)
+                labelRadius = (2 / 3) * (Math.pow(outerRadius, 3) - Math.pow(innerRadius, 3)) / radiusDiff;
+            } else {
+                labelRadius = (innerRadius + outerRadius) / 2;
+            }
+            // Смещаем подпись чуть ближе к центру, не заходя слишком глубоко
+            // labelRadius = Math.max(innerRadius + 12, labelRadius - 12);
             fontSize = 8;
-            fontWeight = 'normal';
+            fontWeight = 'bold';
+            
+            // Радиальное размещение текста (перпендикулярно дуге, вдоль радиуса)
+            rotation = midAngle + 90;
+            
+            // Корректировка угла для читаемости (чтобы текст не был перевернутым)
+            // Для нижней половины круга переворачиваем текст
+            if (midAngle > 0 && midAngle < 180) {
+                rotation = midAngle - 90; // Переворачиваем текст для нижней половины
+            }
         }
         
         // Calculate label coordinates
@@ -426,6 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // For regular segments - simply set coordinates
             text.setAttribute('x', x);
             text.setAttribute('y', y);
+            text.setAttribute('transform', `rotate(${rotation}, ${x}, ${y})`);
         }
         
         text.setAttribute('text-anchor', textAnchor);
